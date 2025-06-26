@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="container my-5">
+    <div class="card shadow border-0">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">
+                {% if detalles %}
+                    Pedido #{{ detalles.0.id_pedido }}
+                {% else %}
+                    Detalles de tu Pedido
+                {% endif %}
+            </h4>
+        </div>
+
+        <div class="card-body">
+            {% if detalles %}
+                <div class="mb-3">
+                    <p><strong>Estado del pedido:</strong> {{ detalles.0.id_pedido.estado|title }}</p>
+                    <p><strong>Total:</strong> ${{ detalles.0.id_pedido.total|intcomma }}</p>
+                </div>
+            {% elif productos %}
+                <div class="mb-3">
+                    <p><strong>Fecha:</strong> {{ fecha }}</p>
+                    <p><strong>Tipo de envío:</strong> {{ tipo_envio }}</p>
+                    <p><strong>Total:</strong> ${{ total|intcomma }}</p>
+                </div>
+            {% endif %}
+
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle text-center">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if detalles %}
+                            {% for d in detalles %}
+                                <tr>
+                                    <td><img src="{{ d.id_producto.imagen.url }}" class="img-thumbnail" style="height: 60px;"></td>
+                                    <td>{{ d.id_producto.idProducto }}</td>
+                                    <td>{{ d.id_producto.nombre }}</td>
+                                    <td>{{ d.id_producto.categoria }}</td>
+                                    <td>{{ d.cantidad }}</td>
+                                    <td>${{ d.id_producto.precio|intcomma }}</td>
+                                    <td>${{ d.subtotal|intcomma }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% elif productos %}
+                            {% for producto in productos %}
+                                <tr>
+                                    <td><img src="{{ producto.imagen.url }}" class="img-thumbnail" style="height: 60px;"></td>
+                                    <td>{{ producto.idProducto }}</td>
+                                    <td>{{ producto.nombre }}</td>
+                                    <td>{{ producto.categoria }}</td>
+                                    <td>{{ cantidad }}</td>
+                                    <td>${{ producto.precio|intcomma }}</td>
+                                    <td>${{ producto.precio|intcomma }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card-footer text-end">
+            <a href="{% url 'tienda' %}" class="btn btn-outline-warning">← Volver a la Tienda</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

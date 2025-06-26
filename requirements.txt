@@ -1,0 +1,18 @@
+jose A= 
+-Arreglar boton correo y agregar cuerpo en base a ¨boleta¨
+-Ver api retante (transbank) (si quieres que me encargue de otra cambiame el parentesis)
+Esteban=
+-Agregar despacho/retiro al carrito
+-Agregar pedido al models.py
+Marcela=
+-Llenalo tu XD
+
+Tareas libres:
+-Hacer responsive la pagina (menos importante)
+-Optimizar pagina de productos
+-Vista vendedor
+-Vista bodeguero
+-Vista contador
+-Arreglar notificacion de falta de stock en la vista usuario
+-Implementar sistema de actualizacion de stock (verlo en grupo)
+-

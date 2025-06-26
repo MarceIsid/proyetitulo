@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/estyle.css' %}">
+{% endblock %}
+{% block contenido %}
+{% load humanize %}
+ 
+    
+<div class="container">
+    <div class="row">
+        <div class="col-12 align-self-center"><h1 class="display-1">Tienda</h1></div>
+        </div>
+    <div class="row">
+        <div class="col-8">
+            <div class="row" style="padding: 10px 0;">
+                <div class="col-12">
+                    <div class="row">
+                        {% for p in productos %}
+                        <div class="col-6">
+                            <div class="card" style="height: 20rem; width: 20rem; margin: 5px 0px; display: grid; place-items: center; margin-inline: 1.0rem; padding-block: 0.5rem;">
+                                <img src="{{ p.imagen.url }}" class="card-img-top" style=" width: 120px;" >
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ p.nombre }}</h5>
+                                    <p class="card-text">{{ p.categoria }}</p>
+                                    <p class="card-text precio-producto" data-precio="{{p.precio}}">${{ p.precio | intcomma}}</p>
+                                    <a href="{% url 'add' p.idProducto%}" class="btn btn-success">Agregar al carrito</a>
+                                    <a href="{% url 'detalle' p.idProducto %}" class="btn btn-success">Ver detalles</a>
+                                    <br>
+                                </div> 
+                                <br>
+                            </div>
+                        </div>
+                       {% endfor %} 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            {% include 'carrito.html' %}
+        </div>
+    </div>
+
+{% endblock %}
+
